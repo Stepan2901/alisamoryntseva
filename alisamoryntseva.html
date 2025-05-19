@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Квест</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f8f8f8;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #image {
+      margin-top: 20px;
+      display: none;
+      max-width: 400px;
+    }
+    #message {
+      margin-top: 10px;
+      color: red;
+      font-weight: bold;
+    }
+    #soulText, #mirrorText {
+      margin-top: 15px;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="font-weight: bold;">Нехай все стане єдиним</h1>
+  <h2 style="font-weight: normal;">Введи кодове слово:</h2>
+  <input id="wordInput" type="text" placeholder="Слово">
+  <button onclick="check()">Провірити</button>
+
+  <div id="message"></div>
+  <img id="image" src="https://i.ibb.co/7tQV87Rg/IMG-20250516-205801-673-1.jpg" alt="Фото з'явиться" style="display: none;">
+
+  <div id="soulText">Загляни їй в душу</div>
+  <div id="mirrorText">Очі — дзеркало душі</div>
+
+  <script>
+    const correctWord = "wroclaw.acquaintance";
+
+    function check() {
+      const inputField = document.getElementById("wordInput");
+      const input = inputField.value.trim();
+      const inputLower = input.toLowerCase();
+      const message = document.getElementById("message");
+      const image = document.getElementById("image");
+      const soulText = document.getElementById("soulText");
+      const mirrorText = document.getElementById("mirrorText");
+
+      if (input === correctWord) {
+        image.style.display = "block";
+        message.textContent = "";
+
+        soulText.style.opacity = 1;
+        mirrorText.style.opacity = 0;
+
+        // через 60 секунд показати наступний текст
+        setTimeout(() => {
+          mirrorText.style.opacity = 1;
+        }, 60000);
+
+      } else {
+        image.style.display = "none";
+        soulText.style.opacity = 0;
+        mirrorText.style.opacity = 0;
+
+        if (input !== inputLower) {
+          message.textContent = "Усі букви мають бути маленькими";
+        } else {
+          message.textContent = "Невірно, спробуй ще";
+        }
+
+        inputField.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
